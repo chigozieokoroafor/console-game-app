@@ -1,10 +1,4 @@
-#console game starts
-
-import random
-import json
-
-
-jsonfile = {
+﻿{
   "module": {
     "number": 1,
     "name": "Mathematics",
@@ -35,19 +29,3 @@ jsonfile = {
     }
   ]
 }
-
-
-
-class Questions:
-    def __init__(self, questions, options, answers ):
-        self.options = options
-        self.answers = answers
-        self.questions = questions
-
-    def question(self):
-        print(self.questions)
-
-    def answers(self):
-        print(" continue")
-
-Questions(jsonfile["questions"][1],jsonfile["questions"][1], jsonfile["questions"][1])
