@@ -3,18 +3,15 @@
 import random
 import json
 
-class Questions:
-    def __init__(self, questions, options, answers ):
-        self.options = options
-        self.answers = answers
-        self.questions = questions
+def name_in_log(name):
+    if name in log:
+       print(name, log[name])
+    else:
+        pass
 
-    def question(self, questions):
-        self.questions = questions
-        print(self.questions)
-
-    def answers(self):
-        print(" continue")
+def continue_or_start_again(choice):
+    if choice == "continue":
+        pass
 
 
 jsonfile = '''{
@@ -45,14 +42,34 @@ jsonfile = '''{
 }
 '''
 
-count = 0
+score = 0
 data = json.loads(jsonfile)
 
-for question in data["questions"]:
-    print((question["question"] ))
-    print("options", ":", question["answers"])
-    answer = float(input(">>"))
-    if answer == question["correct_answer"]:
-        count = count+5
-        print("correct answer")
-        print("your score is ", count)
+opened = True
+
+count = -1
+log ={
+
+}
+while opened:
+    name = input("your name: ")
+    if name in log:
+       print(name, log[name])
+    for question in data["questions"]:
+        print((question["question"] ))
+        print("options", ":", question["answers"])
+        answer = float(input(">>"))
+        if answer == question["correct_answer"]:
+            score = score+5
+            print("correct answer")
+            print("your score is ", score)
+            
+        continue_or_quit = input("continue or quit: ")
+        if continue_or_quit == "continue":
+            continue
+        elif continue_or_quit == "quit":
+            log[name] = score
+            print(log)
+            break
+
+
