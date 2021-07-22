@@ -4,72 +4,96 @@ import random
 import json
 
 def name_in_log(name):
-    if name in log:
-       print(name, log[name])
+
+    if name in name_score_log:
+       print(name, name_score_log[name])
     else:
         pass
 
-def continue_or_start_again(choice):
-    if choice == "continue":
+
+def quit(x):
+    if x == "N":
+        name_score_log[name] = score
+        name_question_log[name] = question["question"]
+    elif x == "Y":
         pass
 
 
-jsonfile = '''{
 
-  "questions": [
-    {
-      "number": 1,
-      "question": "Eighteen thousandths, written as a decimal, is:",
-      "answers": [
-        "0.0018",
-        "0.018",
-        "0.18"
-      ],
-      "correct_answer": 0.0018
-    },
-    {
-      "number": 2,
-      "question": "The next number in the sequence 1, 3, 6, 10,  is:",
-      "answers": [
-        "12",
-        "13",
-        "14",
-        "15"
-      ],
-      "correct_answer": 15
-    }
-  ]
-}
-'''
-
-score = 0
-data = json.loads(jsonfile)
-
-opened = True
-
-count = -1
-log ={
-
-}
-while opened:
-    name = input("your name: ")
-    if name in log:
-       print(name, log[name])
+def questioneer(data):
+    score = 0
     for question in data["questions"]:
-        print((question["question"] ))
-        print("options", ":", question["answers"])
-        answer = float(input(">>"))
-        if answer == question["correct_answer"]:
-            score = score+5
+        print((question["question"]))
+        print("options", ":", question["options"])
+        answer = input(">> ").upper()
+        if answer == question["correct"]:
+            score = score + 5
             print("correct answer")
             print("your score is ", score)
-            
-        continue_or_quit = input("continue or quit: ")
-        if continue_or_quit == "continue":
-            continue
-        elif continue_or_quit == "quit":
-            log[name] = score
-            print(log)
-            break
+            quit = input("quit (y/n) >>").upper()
+            quit(quit)
+#def checkpoint(name):
+#    if name_in_log(name) and name in  name_question_log:
+
+
+
+
+
+file = open("questions.json")
+
+
+data = json.load(file)
+
+
+count = -1
+name_score_log = {
+
+}
+name_question_log = {
+
+}
+opened = True
+while opened:
+    name = input("your name: ")
+    if name in name_score_log:
+        print("Restart (y/n)")
+        info = input(">> ").upper()
+        if info == "Y":
+            questioneer(data)
+
+
+
+        elif info=="N":
+            pass
+
+
+
+    # elif info == "N":
+
+    elif name not in name_score_log:
+        score = 0
+        for question in data["questions"]:
+            print((question["question"] ))
+            print("options", ":", question["options"])
+            answer = input(">> ").upper()
+            if answer == question["correct"]:
+                score = score+5
+                print("correct answer")
+                print("your score is ", score)
+
+
+                continue_or_quit = input("continue or quit: ")
+                if continue_or_quit == "continue":
+                    continue
+                elif continue_or_quit == "quit":
+
+
+                    name_score_log[name] = score
+                    name_question_log[name] = question["question"]
+                break
+
+
+
+
 
 
